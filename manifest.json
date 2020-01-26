@@ -30,19 +30,6 @@
       "url": "url"
     }
   },
-  "file_handler": {
-    "action": "/simple-text-reader",
-    "files": [
-      {
-        "name": "Text Reader",
-        "accept": [ ".txt3", ".txt5" ]
-      },
-      {
-        "name": "Text Reader Single Format",
-        "accept": ".txt2"
-      }
-    ]
-  },
   "file_handlers": [
     {
       "action": "/simple-text-reader",
