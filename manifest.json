@@ -47,13 +47,17 @@
   ],
   "related_applications": [
     {
+      "platform": "browser",
+      "id": "Microsoft.MicrosoftEdge.Stable_8wekyb3d8bbwe"
+    },
+    {
+      "platform": "browser",
+      "id": "Microsoft.MicrosoftEdge.Canary_8wekyb3d8bbwe"
+    },
+    {
       "platform": "play",
       "id": "android-sunggook-app",
       "url": "https://sunggook.github.io/hello-pwa"
-    },
-    {
-      "platform": "store",
-      "id": "sunggook.github.io-*"
     }
   ]
 }
