@@ -1,99 +1,167 @@
-﻿function unlinkSrcFromImage() {
-    var elements = document.getElementsByTagName("img");
-    Array.prototype.forEach.call(elements, function (el) {
-        // el.savedSrc = el.src;
-        el.src = '';
-    });
-    window.CollectGarbage();
+﻿function show_activaton_type(type) {
+    // document.body.styleSheets.insertRule(".activation_type { display;none}", 0);
+    let el = document.getElementById(type);
+    if (!el)
+        return;
+
+    el.style.display = 'block';
 }
 
-function removeImagesLinks() {
-    var container = document.getElementById("container");
-
-    var elements = document.getElementsByTagName("img");
-    Array.prototype.forEach.call(elements, function (el) {
-        container.removeChild(el);
-    });
-    window.CollectGarbage();
-}
-
-function hideVisibility() {
-    
-    document.body.style.visibility = 'hidden';
-    window.CollectGarbage();
+function activate_navigate() {
+    show_activaton_type("launch");
 }
 
 function activate_shared(searchParams) {
-    document.getElementById('activation_type').innerHTML = "ShareTarget:  ";
+    show_activaton_type("share");
     const title = searchParams.get("title");
     const text = searchParams.get("text");
     const url = searchParams.get("url");
     document.getElementById("shared_from").innerHTML += "Title: " + title + "<br>";
     text ? document.getElementById("shared_from").innerHTML += "Text: " + text + "<br>": text;
     url ? document.getElementById("shared_from").innerHTML += "Url: " + url + "<br>" : url;
-    document.getElementsByClassName('shared')[0].style.visibility = 'visible';
 }
 
+// function activate_filehandler(searchParams) {
+//     show_activaton_type("file");
+
+//     // Read file
+//     let file = searchParams.get("file");
+//     if (!file) {
+//         console.log("file handler activation doesn't have 'file' query");
+//         return;
+//     }
+
+//     if (!window.chooseFileSystemEntries){
+//         console.log("native file system isn't supported");
+//         return;
+//     }
+
+//     async function getNewFileHandle() {
+//         const opts = {
+//             type: 'openFile', // save-file, open-directory
+//             accepts: [
+//                 {
+//                     description: 'MY File',
+//                     extensions: ['txt2'], // file handler in the manifest.
+//                     // mimeTypes: ['text/plain'],
+//                 },
+//                 {
+//                     description: 'Txt3 file',
+//                     extensions: ['txt3'], // file handler in the manifest.
+//                     // mimeTypes: ['text/plain'],
+//                 },
+//                 {
+//                     description: 'You file',
+//                     extensions: ['txt4'], // file handler in the manifest.
+//                     // mimeTypes: ['text/plain'],
+//                 },
+                
+//             ],
+//         };
+//         const handle = await window.chooseFileSystemEntries(opts);
+//         const file = await handle.getFile();
+//         const contents = await file.text();
+//         return contents;
+//     }
+
+//     let file_open_btn = document.createElement('button');
+//     file_open_btn.innerHTML = "Open File";
+    
+//     let file_name = document.createElement('div');
+//     file_name.innerHTML = "choose file: " + file;
+//     file_activation.appendChild(file_name);
+//     file_activation.appendChild(file_open_btn);
+
+//     file_open_btn.addEventListener('click', () => {
+//         getNewFileHandle().then((contents) => {
+//             var element = document.getElementById('file_handler');
+//             element.innerHTML = contents;
+//             document.getElementsByClassName('filetype')[0].style.visibility = 'visible';
+//         })
+//     });
+// }
+
 function activate_filehandler(searchParams) {
-    let file_activation = document.getElementById('activation_type');
-    file_activation.innerHTML = "FileHandler:  ";
-    // Read file
-    let file = searchParams.get("file");
-    if (!file) {
+    const win32 = searchParams.get("win32");
+    if (win32) {
+        // content uri; onedrive
+        let cotenturi = document.createElement('div');
+        cotenturi.innerHTML = "win32=" + win32;
+        document.getElementById('file').appendChild(win32);
+    }
+
+    const conflict = searchParams.get("conflict");
+    if (conflict) {
+        // content uri; onedrive
+        let cotenturi = document.createElement('div');
+        cotenturi.innerHTML = "content_uri=" + conflict;
+        document.getElementById('file').appendChild(conflict);
+    }
+    const content_uri = searchParams.get("contenturi");
+    if (content_uri) {
+        // content uri; onedrive
+        let cotenturi = document.createElement('div');
+        cotenturi.innerHTML = "content_uri=" + content_uri;
+        document.getElementById('file').appendChild(cotenturi);
+
+        // content_uri can't be mixed with local file opening below.
+        let uri_open = document.createElement('button');
+        uri_open.innerHTML = "window.open(" + content_uri + ")";
+        uri_open.id = "content_uri_open";
+        document.getElementById('file').appendChild(uri_open);
+        uri_open.addEventListener('click', (e) => {
+            window.open(content_uri);
+        })
+
+        return;
+    }
+
+    if (!('launchQueue' in window)) {
+        console.log("launchQueue isn't supported");
         return;
     }
 
     if (!window.chooseFileSystemEntries){
+        console.log("native file system isn't supported");
         return;
     }
 
-    async function getNewFileHandle() {
-        const opts = {
-            type: 'openFile', // save-file, open-directory
-            accepts: [
-                {
-                    description: 'MY File',
-                    extensions: ['txt2'], // file handler in the manifest.
-                    // mimeTypes: ['text/plain'],
-                },
-                {
-                    description: 'Txt3 file',
-                    extensions: ['txt3'], // file handler in the manifest.
-                    // mimeTypes: ['text/plain'],
-                },
-                {
-                    description: 'You file',
-                    extensions: ['txt4'], // file handler in the manifest.
-                    // mimeTypes: ['text/plain'],
-                },
-                
-            ],
-        };
-        const handle = await window.chooseFileSystemEntries(opts);
+    
+    async function getContents(handle) {
         const file = await handle.getFile();
         const contents = await file.text();
         return contents;
     }
 
-    let file_open_btn = document.createElement('button');
-    file_open_btn.innerHTML = "Open File";
-    
-    let file_name = document.createElement('div');
-    file_name.innerHTML = "choose file: " + file;
-    file_activation.appendChild(file_name);
-    file_activation.appendChild(file_open_btn);
+    async function writeTestContents(handle) {
+        // Create a writer (request permission if necessary).
+        const writer = await handle.createWriter();
+        // Make sure we start with an empty file
+        // await writer.truncate(0);
+        // Write the full length of the contents
+        await writer.write(0, "WRITTEN DYNAMICALLY WRITTEN DYNAMICALLY WRITTEN DYNAMICALLY");
+        // Close the file and write the contents to disk
+        await writer.close();
+    }
 
-    file_open_btn.addEventListener('click', () => {
-        getNewFileHandle().then((contents) => {
+    launchQueue.setConsumer(launchParams => {
+        if (!launchParams.files.length) {
+            console.log("launchQueue has 0 params");
+            return;
+        }
+
+        const fileHandle = launchParams.files[0];
+        getContents(fileHandle).then((contents) => {
             var element = document.getElementById('file_handler');
             element.innerHTML = contents;
             document.getElementsByClassName('filetype')[0].style.visibility = 'visible';
-        })
-    });
-}
 
-function activate_navigate() {
-    document.getElementById('activation_type').innerHTML = "Navigation"
+            writeTestContents(fileHandle);
+        });
+
+        // Handle the file:
+        // https://github.com/WICG/native-file-system/blob/master/EXPLAINER.md#example-code
+    });
 }
 
 document.addEventListener('DOMContentLoaded', ()=> {
@@ -106,63 +174,38 @@ document.addEventListener('DOMContentLoaded', ()=> {
         }); 
     }
 
-    document.getElementsByClassName('shared')[0].style.visibility = 'hidden';
-    document.getElementsByClassName('filetype')[0].style.visibility = 'hidden';
+    show_activaton_type("bogus");
 
-    if (location.search.length) {
-        var searchParams = new URLSearchParams(location.search);
-        activation_type = searchParams.get("activation");
-        if (activation_type == "sharedtarget") {
-            activate_shared(searchParams);
-        } else {
-            activate_navigate();
-        }
-    } else {
-        if ('launchQueue' in window) {
-          if (!window.chooseFileSystemEntries){
-              return;
-          }
+    // document.getElementsByClassName('shared')[0].style.visibility = 'hidden';
+    // document.getElementsByClassName('filetype')[0].style.visibility = 'hidden';
 
-          async function getContents(handle) {
-            const file = await handle.getFile();
-            const contents = await file.text();
-            return contents;
-          }
+    // Web Apps start from start_url from the manifest, which is a hint to
+    // check whether it is a Web Apps activation or browser navigation.
+    if (location.search.length == 0) {
+        show_activaton_type("browser");
+        return;
+    }
 
-          async function writeTestContents(handle) {
-            // Create a writer (request permission if necessary).
-            const writer = await handle.createWriter();
-            // Make sure we start with an empty file
-            // await writer.truncate(0);
-            // Write the full length of the contents
-            await writer.write(0, "WRITTEN DYNAMICALLY WRITTEN DYNAMICALLY WRITTEN DYNAMICALLY");
-            // Close the file and write the contents to disk
-            await writer.close();
-          }
- 
-          launchQueue.setConsumer(launchParams => {
-            if (!launchParams.files.length) {
-              activate_navigate();
-              return;
-            }
+    var searchParams = new URLSearchParams(location.search);
+    if (location.search.length == 1) {
+        const launch_type = searchParams.get("utm_source");
+        if (launch_type == "app")
+            show_activaton_type("launch");
+        else
+            show_activaton_type("browser");
         
-            let file_activation = document.getElementById('activation_type');
-            file_activation.innerHTML = "FileHandler:  ";
+        return;
+    }
 
-            const fileHandle = launchParams.files[0];
-            getContents(fileHandle).then((contents) => {
-                var element = document.getElementById('file_handler');
-                element.innerHTML = contents;
-                document.getElementsByClassName('filetype')[0].style.visibility = 'visible';
+    activation_type = searchParams.get("activation");
+    if (activation_type == "sharedtarget") {
+        activate_shared(searchParams);
+    } else {
+        activate_filehandler(searchParams);
 
-                writeTestContents(fileHandle);
-            });
-
-            // Handle the file:
-            // https://github.com/WICG/native-file-system/blob/master/EXPLAINER.md#example-code
-          });
+        
         } else {
-          activate_navigate();
+            show_activaton_type("file");
         }
     }
 })

@@ -20,9 +20,22 @@
     </div>
     <div>
         <h3>2. Activation test</3>
-        <h4 id="activation_type" style="font-style: italic"></h4>
-        <div class="shared" id="shared_from"></div>
-        <div class="filetype" id="file_handler"></div>
+        <div class="activation_type" id="browser" >
+            <div>browser navigation</div>
+        </div>
+        <div class="activation_type" id="launch" >
+            <div>App Launch activation</div>
+        </div>
+        <div class="activation_type" id="share" >
+            <div>Share target activation</div>
+            <div id="shared_from"></div>
+
+        </div>
+        <div class="activation_type" id="file" >
+            <div>File handler activation</div>
+            <button id='file_save_click'>Try Save</button>
+            <div class="filetype" id="file_handler" contenteditable="true"></div>
+        </div>
     </div>
     <div>
         <h3>3. Navigator.share test</h3>
