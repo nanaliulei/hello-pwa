@@ -3,7 +3,7 @@
   "short_name": "PWA Test",
   "description": "PWA Test to help PWA team",
   "categories": ["utilities", "productivity"],
-  "start_url": "https://sunggook.github.io/hello-pwa/?utm_source=app",
+  "start_url": "./?utm_source=app",
   "theme_color": "#8E2C54",
   "scope":".",
   "background_color": "#2C488E",
@@ -11,17 +11,17 @@
   "orientation": "portrait",
   "icons": [
     {
-        "src": "/hello-pwa/skull192.png",
+        "src": "./skull192.png",
         "sizes": "192x192",
         "type": "image/png"
     }, {
-      "src": "/hello-pwa/skull512.png",
-        "sizes": "512X512",
+      "src": "./skull512.png",
+        "sizes": "512x512",
         "type": "image/png"
     }
   ],
   "share_target": {
-    "action": "/share-target/",
+    "action": "./share-target/",
     "method": "GET",
     "enctype": "application/x-www-form-urlencoded",
     "params": {
@@ -32,13 +32,13 @@
   },
   "file_handlers": [
     {
-      "action": "/simple-text-reader",
+      "action": "./simple-text-reader",
       "accept": {
         "text/csv": ".txt5"
       }
     },
     {
-      "action": "/",
+      "action": "./",
       "accept": {
         "text/csv": [ ".txt2, txt3" ],
         "application/vnd.alternative-graph-app.graph": ".graph2"
