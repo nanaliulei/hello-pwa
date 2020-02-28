@@ -39,7 +39,7 @@ function activate_filehandler(search_param) {
             window.open(content_uri);
         })
 
-        resolve(false);
+        resolve('contenturi');
     }
 
     if (!window.launchQueue) {
@@ -82,13 +82,13 @@ function activate_filehandler(search_param) {
 
         const fileHandle = launchQueueParams.files[0];
         getContents(fileHandle).then((contents) => {
+            document.getElementById('file').style.display = 'block';
             var element = document.getElementById('file_handler');
             element.innerHTML = contents;
             document.getElementsByClassName('filetype')[0].style.visibility = 'visible';
 
-            show_activaton_type('file');
             // writeTestContents(fileHandle, ":FromApp" + contents);
-            resolve(true);
+            resolve('local file');
         });
 
         document.getElementById('file_save_click').addEventListener('click', (e) => {
@@ -101,7 +101,7 @@ function activate_filehandler(search_param) {
 }
 
 document.addEventListener('DOMContentLoaded', ()=> {
-  if (location.href != "https://ie-snap/scratchtests/sunggch/hello-pwa/?utm_source=app") {
+  if (location.href.search('simple-text-reader') != -1) {
     console.log("simple-text-reader loaded");
     activate_filehandler();
   }
