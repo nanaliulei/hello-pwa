@@ -40,7 +40,7 @@
     {
       "action": "./",
       "accept": {
-        "text/csv": [ ".txt2, txt3" ],
+        "text/csv": [ ".txt2", ".txt3" ],
         "application/vnd.alternative-graph-app.graph": ".graph2"
       }
     }
