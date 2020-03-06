@@ -12,27 +12,27 @@ function isSupported(kind) {
 
 // Wrapper to support first and second origin trial
 // See https://web.dev/badging-api/ for details.
-function setBadge(...args) {
-if (navigator.setExperimentalAppBadge) {
-    navigator.setExperimentalAppBadge(...args);
-  } else if (window.ExperimentalBadge) {
-    window.ExperimentalBadge.set(...args);
-  }
-}
+// function setBadge(...args) {
+//   if (navigator.setAppBadge) {
+//     navigator.setAppBadge(...args);
+//   } else if (window.ExperimentalBadge) {
+//     window.ExperimentalBadge.set(...args);
+//   }
+// }
 
 // Wrapper to support first and second origin trial
 // See https://web.dev/badging-api/ for details.
-function clearBadge() {
-  if (navigator.clearExperimentalAppBadge) {
-    navigator.clearExperimentalAppBadge();
-  } else if (window.ExperimentalBadge) {
-    window.ExperimentalBadge.clear();
-  }
-}
+// function clearBadge() {
+//   if (navigator.clearAppBadge) {
+//     navigator.clearAppBadge();
+//   } else if (window.ExperimentalBadge) {
+//     window.ExperimentalBadge.clear();
+//   }
+// }
 
 document.addEventListener('DOMContentLoaded', ()=> {
   // Check if the API is supported.
-  if ('setExperimentalAppBadge' in navigator) {
+  if ('setAppBadge' in navigator) {
     isSupported('v2')
   }
 
@@ -48,24 +48,24 @@ document.addEventListener('DOMContentLoaded', ()=> {
   butSet.addEventListener('click', () => {
     const val = parseInt(badgeVal.value, 10);
     if (isNaN(val)) {
-      setBadge();
+      navigator.setAppBadge();
       return;
     }
-    setBadge(val);
+    navigator.setAppBadge(val);
   });
   
   // Click event handler for Clear button.
   butClear.addEventListener('click', () => {
-    clearBadge();
+    navigator.clearAppBadge();
   });
   
   // On page load, set the badge to a simple flag.
   window.addEventListener('load', () => {
     const val = parseInt(badgeVal.value, 10);
     if (isNaN(val)) {
-      setBadge();
+      navigator.setAppBadge();
       return;
     }
-    setBadge(val);
+    navigator.setAppBadge(val);
   });
 })
