@@ -55,8 +55,8 @@ document.addEventListener('DOMContentLoaded', ()=> {
     if (activation_type == "share") {
         activate_shared(searchParams);
     } else if (activation_type == "file") {
-        show_activaton_type("file");
         activate_filehandler(searchParams).then((value) => {
+            show_activaton_type("file");
             console.log('file handler: ' + value);
         })
     } else {

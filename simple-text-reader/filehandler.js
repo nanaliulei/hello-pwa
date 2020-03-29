@@ -10,25 +10,26 @@ function activate_filehandler(search_param) {
     const win32 = searchParams.get("win32");
     if (win32) {
         // content uri; onedrive
-        let cotenturi = document.createElement('div');
-        cotenturi.innerHTML = "win32=" + win32;
-        document.getElementById('file').appendChild(win32);
+        let win32_el = document.createElement('div');
+        win32_el.innerHTML = "win32=" + win32;
+        document.getElementById('file').appendChild(win32_el);
     }
 
     const conflict = searchParams.get("conflict");
     if (conflict) {
         // content uri; onedrive
-        let cotenturi = document.createElement('div');
-        cotenturi.innerHTML = "content_uri=" + conflict;
-        document.getElementById('file').appendChild(conflict);
+        let conflict_el = document.createElement('div');
+        conflict_el.innerHTML = "conflict=" + conflict;
+        document.getElementById('file').appendChild(conflict_el);
     }
 
     const content_uri = searchParams.get("contenturi");
     if (content_uri) {
+        document.getElementById('file').style.display = 'block';
         // content uri; onedrive
-        let cotenturi = document.createElement('div');
-        cotenturi.innerHTML = "content_uri=" + content_uri;
-        document.getElementById('file').appendChild(cotenturi);
+        let cotenturi_el = document.createElement('div');
+        cotenturi_el.innerHTML = "content_uri=" + content_uri;
+        document.getElementById('file').appendChild(cotenturi_el);
 
         // content_uri can't be mixed with local file opening below.
         let uri_open = document.createElement('button');
