@@ -10,6 +10,8 @@
     <script src="badging.js"></script>
     <script src="simple-text-reader/filehandler.js"></script>
     <script src="script.js"></script>
+    <script src="related_apps.js"></script>
+
 </head>
 <body bgcolor="#E6E6FA">
     <div><b>1. Custom Taskbar: (NoDrag Zone)</b>
@@ -89,14 +91,19 @@
         <button id='butClear' type='button' class="badge-button"> Clear </button>
         
     </div>
-    <!-- <h2>Performance Test: Image Load</h2>
     <div>
-        <button id="generate" onclick="generate()">Creat images</button>
-        <button id="unlinkSrcFromImage" onclick="unlinkSrcFromImage()">Set image with empty</button>
-        <button id="removeImagesLinks" onclick="removeImagesLinks()">Remove images element</button>
-        <button id="hideVisibility" onclick="hideVisibility()">Hide visibility</button>
-        <div id="container"></div>
-    </div> -->
+        <h3>5. getInsatlledRelatedApps test</h3>
+        <p>
+            <b>related_applications list in the manifest.json</b>
+            <did id='gIRA_list'/>
+        </p>
+        <p>
+            <b>Please start browser with '--enable-features=InstalledAppProvider'
+            in order to use the API. <br> </b>
+        <button id="gira_button">getInsatlledRelatedApps()</button>
+        <div id="filtered_app"></div>
+        </p>
+    </div>
 </body>
 
 </html>
