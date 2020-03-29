@@ -9,3 +9,7 @@
   display:none;
   font-size:small;
 }
+
+table, td, tr, th {
+  border: 1px solid black;
+}
