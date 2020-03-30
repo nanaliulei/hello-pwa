@@ -1,0 +1,7 @@
+[
+  {
+    "packageFamilyName": "sunggook-gIRATestSite_z6qgzxavvykx8",
+    "paths": [ "*" ],
+    "excludePaths" : [ "/news/*", "/blog/*" ]
+  }
+]
