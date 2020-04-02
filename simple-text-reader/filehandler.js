@@ -15,6 +15,30 @@ function activate_filehandler(search_param) {
         document.getElementById('file').appendChild(win32_el);
     }
 
+    const not_synced_to_cloud = searchParams.get("not_synced_to_cloud");
+    if (not_synced_to_cloud) {
+        // content uri; onedrive
+        let not_synced_to_cloud_el = document.createElement('div');
+        not_synced_to_cloud_el.innerHTML = "not_synced_to_cloud=" + not_synced_to_cloud;
+        document.getElementById('file').appendChild(not_synced_to_cloud_el);
+    }
+
+    const locally_synced = searchParams.get("locally_synced");
+    if (locally_synced) {
+        // content uri; onedrive
+        let locally_synced_el = document.createElement('div');
+        locally_synced_el.innerHTML = "locally_synced=" + locally_synced;
+        document.getElementById('file').appendChild(locally_synced_el);
+    }
+
+    const local_file = searchParams.get("local_file");
+    if (local_file) {
+        // content uri; onedrive
+        let local_file_el = document.createElement('div');
+        local_file_el.innerHTML = "local_file=" + local_file;
+        document.getElementById('file').appendChild(local_file_el);
+    }
+
     const conflict = searchParams.get("conflict");
     if (conflict) {
         // content uri; onedrive
