@@ -15,6 +15,14 @@ function activate_filehandler(search_param) {
         document.getElementById('file').appendChild(win32_el);
     }
 
+    const launch_error = searchParams.get("launch_error");
+    if (launch_error) {
+        // content uri; onedrive
+        let launch_error_el = document.createElement('div');
+        launch_error_el.innerHTML = "launch_error=" + launch_error;
+        document.getElementById('file').appendChild(launch_error_el);
+    }
+
     const not_synced_to_cloud = searchParams.get("not_synced_to_cloud");
     if (not_synced_to_cloud) {
         // content uri; onedrive
