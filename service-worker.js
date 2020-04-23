@@ -4,7 +4,7 @@ const PRECACHE = 'sw-preCache';
 const RUNTIME = 'runtime';
 
 // every check-in should change this value for refresh cache.
-let hash = '3/24:8:05/2020';
+let hash = '4/22:8:05/2020';
 
 self.addEventListener('install', (event) => {
     event.waitUntil(

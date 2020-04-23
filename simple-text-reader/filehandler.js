@@ -104,32 +104,34 @@ function activate_filehandler(search_param) {
         await writer.close();
     }
 
-    console.log("before launchQueue.setConsumer");
-    launchQueue.setConsumer(launchQueueParams => {
-        if (!launchQueueParams.files.length) {
-            console.log("launchQueue has 0 params");
-            resolve(false);
-        }
+    if (local_file) {
+        console.log("before launchQueue.setConsumer");
+        launchQueue.setConsumer(launchQueueParams => {
+            if (!launchQueueParams.files.length) {
+                console.log("launchQueue has 0 params");
+                resolve(false);
+            }
 
-        console.log("launch.params has " + launchQueueParams.files.length + " counts");
+            console.log("launch.params has " + launchQueueParams.files.length + " counts");
 
-        const fileHandle = launchQueueParams.files[0];
-        getContents(fileHandle).then((contents) => {
-            document.getElementById('file').style.display = 'block';
-            var element = document.getElementById('file_handler');
-            element.innerHTML = contents;
-            document.getElementsByClassName('filetype')[0].style.visibility = 'visible';
+            const fileHandle = launchQueueParams.files[0];
+            getContents(fileHandle).then((contents) => {
+                document.getElementById('file').style.display = 'block';
+                var element = document.getElementById('file_handler');
+                element.innerHTML = contents;
+                document.getElementsByClassName('filetype')[0].style.visibility = 'visible';
 
-            // writeTestContents(fileHandle, ":FromApp" + contents);
-            resolve('local file');
+                // writeTestContents(fileHandle, ":FromApp" + contents);
+                resolve('local file');
+            });
+
+            document.getElementById('file_save_click').addEventListener('click', (e) => {
+                writeTestContents(fileHandle, document.getElementById('file_handler').innerHTML);
+            })
+            // Handle the file:
+            // https://github.com/WICG/native-file-system/blob/master/EXPLAINER.md#example-code
         });
-
-        document.getElementById('file_save_click').addEventListener('click', (e) => {
-            writeTestContents(fileHandle, document.getElementById('file_handler').innerHTML);
-        })
-        // Handle the file:
-        // https://github.com/WICG/native-file-system/blob/master/EXPLAINER.md#example-code
-    });
+    }
   })
 }
 
