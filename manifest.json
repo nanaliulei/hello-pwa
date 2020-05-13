@@ -57,12 +57,8 @@
   ],
   "related_applications": [
     {
-      "platform": "store",
+      "platform": "windows",
       "id": "sunggook-gIRATestSite_z6qgzxavvykx8!App"
-    },
-    {
-      "platform": "store",
-      "id": "www.office.com-E7D3A164_2pdqnayn3zr7t!App"
     },
     {
       "platform": "play",
