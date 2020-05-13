@@ -55,6 +55,14 @@ function activate_filehandler(search_param) {
         document.getElementById('file').appendChild(conflict_el);
     }
 
+    const last_modified = searchParams.get("last_modified");
+    if (last_modified) {
+        // content uri; onedrive
+        let last_modified_el = document.createElement('div');
+        last_modified_el.innerHTML = "last_modified=" + last_modified;
+        document.getElementById('file').appendChild(last_modified_el);
+    }
+
     const content_uri = searchParams.get("contenturi");
     if (content_uri) {
         document.getElementById('file').style.display = 'block';
