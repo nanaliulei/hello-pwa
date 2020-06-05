@@ -36,7 +36,7 @@ self.addEventListener('fetch', (event) => {
         var path = event.request.url;
 
         // if (sites_v1.indexOf(path) !== -1 ||
-        //         persistent_image_v1.indexOf(path) !== -1) {
+        //      persistent_image_v1.indexOf(path) !== -1) {
             // defer checking caches.
         event.respondWith(
             caches.match(event.request).then(cachedResponse => {
