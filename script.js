@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
         });
     }
 
-    // document.getElementsByClassName('shared')[0].style.visibility = 'hidden';
+    // document.getElementsByClassName('shared')[0].style.visibility =   'hidden';
     // document.getElementsByClassName('filetype')[0].style.visibility = 'hidden';
 
     // Web Apps start from start_url from the manifest, which is a hint to
