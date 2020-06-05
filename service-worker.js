@@ -1,5 +1,3 @@
-
-
 const runtime_cache_ = 'runtime';
 let precache_ = ""
 
