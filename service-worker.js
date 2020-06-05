@@ -35,40 +35,40 @@ self.addEventListener('fetch', (event) => {
     if (event.request.url.startsWith(self.location.origin)) {
         var path = event.request.url;
 
-        if (sites_v1.indexOf(path) !== -1 ||
-                persistent_image_v1.indexOf(path) !== -1) {
+        // if (sites_v1.indexOf(path) !== -1 ||
+        //         persistent_image_v1.indexOf(path) !== -1) {
             // defer checking caches.
-            event.respondWith(
-                caches.match(event.request).then(cachedResponse => {
-                    if (cachedResponse) {
-                        return cachedResponse;
-                    }
+        event.respondWith(
+            caches.match(event.request).then(cachedResponse => {
+                if (cachedResponse) {
+                    return cachedResponse;
+                }
 
-                    return fetch(event.request).then(
-                        function(response) {
-                          // Check if we received a valid response
-                          if(!response || response.status !== 200 || response.type !== 'basic') {
-                            // null body returns will let client fetch on the client.
-                            return new Response();
-                          }
-
-                          // IMPORTANT: Clone the response. A response is a stream
-                          // and because we want the browser to consume the response
-                          // as well as the cache consuming the response, we need
-                          // to clone it so we have two streams.
-                          var responseToCache = response.clone();
-
-                          caches.open(runtime_cache_)
-                            .then(function(cache) {
-                              cache.put(event.request, responseToCache);
-                            });
-
-                          return response;
+                return fetch(event.request).then(
+                    function(response) {
+                        // Check if we received a valid response
+                        if(!response || response.status !== 200 || response.type !== 'basic') {
+                        // null body returns will let client fetch on the client.
+                        return new Response();
                         }
-                      );
-                })
-            );
-        }
+
+                        // IMPORTANT: Clone the response. A response is a stream
+                        // and because we want the browser to consume the response
+                        // as well as the cache consuming the response, we need
+                        // to clone it so we have two streams.
+                        var responseToCache = response.clone();
+
+                        caches.open(runtime_cache_)
+                        .then(function(cache) {
+                            cache.put(event.request, responseToCache);
+                        });
+
+                        return response;
+                    }
+                    );
+            })
+        );
+        // }
     }
 });
 
