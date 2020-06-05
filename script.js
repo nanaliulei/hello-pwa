@@ -22,13 +22,13 @@ function activate_shared(searchParams) {
 }
 
 document.addEventListener('DOMContentLoaded', ()=> {
-    if ('serviceWorker' in navigator) { 
+    if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('service-worker.js')
-        .then ((reg) => { 
-            console.log('service worker is registered successfully,' + location.href); 
-        }).catch((e) => { 
-            console.log('service worker registration failed'); 
-        }); 
+        .then ((reg) => {
+            console.log('service worker is registered successfully, ' + location.href);
+        }).catch((e) => {
+            console.log('service worker registration failed');
+        });
     }
 
     // document.getElementsByClassName('shared')[0].style.visibility = 'hidden';
