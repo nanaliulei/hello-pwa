@@ -81,7 +81,9 @@ var sites_v1 = [
     "https://sunggook.github.io/hello-pwa/share.js",
     "https://sunggook.github.io/hello-pwa/badging.js",
     "https://sunggook.github.io/hello-pwa/style.css",
-
+    "https://sunggook.github.io/hello-pwa/related_apps.js",
+    "https://sunggook.github.io/hello-pwa/simple-text-reader/filehandler.js",
+    "https://sunggook.github.io/hello-pwa/manifest.json",
    ]
 
 var persistent_image_v1 = [
