@@ -12,7 +12,7 @@ self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(precache_)
         .then(cache => {
-            // cache.addAll(sites_v1);
+            cache.addAll(sites_v1);
             cache.addAll(persistent_image_v1);
         })
         .then(self.skipWaiting())
