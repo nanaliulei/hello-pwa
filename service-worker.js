@@ -1,14 +1,16 @@
 
 
-const PRECACHE = 'sw-preCache';
-const RUNTIME = 'runtime';
+const runtime_cache_ = 'runtime';
+let precache_ = ""
 
 // every check-in should change this value for refresh cache.
 let hash = '4/22:8:05/2020';
 
 self.addEventListener('install', (event) => {
+    let t = new Date();
+    precache_ = "precache_" + t.getTime();
     event.waitUntil(
-        caches.open(PRECACHE)
+        caches.open(precache_)
         .then(cache => {
             // cache.addAll(sites_v1);
             cache.addAll(persistent_image_v1);
@@ -19,7 +21,7 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('activate', (event) => {
     // New service worker upgrade, then delete caches other than whitelist..
-    const whiteList = [];  // const whiteList = [PRECACHE];
+    const whiteList = [precache_];  // const whiteList = [PRECACHE];
     event.waitUntil(
         caches.keys().then(cacheNames => {
             return cacheNames.filter(cacheName => !whiteList.includes(cacheName));
@@ -48,8 +50,9 @@ self.addEventListener('fetch', (event) => {
                         function(response) {
                           // Check if we received a valid response
                           if(!response || response.status !== 200 || response.type !== 'basic') {
-                            return response;
-                          } 
+                            // null body returns will let client fetch on the client.
+                            return new Response();
+                          }
 
                           // IMPORTANT: Clone the response. A response is a stream
                           // and because we want the browser to consume the response
@@ -57,7 +60,7 @@ self.addEventListener('fetch', (event) => {
                           // to clone it so we have two streams.
                           var responseToCache = response.clone();
 
-                          caches.open(RUNTIME)
+                          caches.open(runtime_cache_)
                             .then(function(cache) {
                               cache.put(event.request, responseToCache);
                             });
@@ -65,26 +68,6 @@ self.addEventListener('fetch', (event) => {
                           return response;
                         }
                       );
-
-                    // if (FECHED_ON_SW.indexOf(path) !== -1) {
-                    //     return caches.open(RUNTIME).then(cache => {
-                    //         return fetch(event.request).then(response => {
-                    //             return cache.put(event.request, response.clone()).then(() => {
-                    //                 console.log("[SW] fetch and return on SW: " + event.request.url);
-                    //                 return response;
-                    //             });
-                    //         });
-                    //     });
-                    // } else
-                    // {
-                    //     caches.open(RUNTIME).then(cache => {
-                    //         fetch(event.request).then(response => {
-                    //             cache.put(event.request, response);
-                    //             console.log("[SW] fetch on client and cache on SW: " + event.request.url);
-                    //         });
-                    //     });
-                    //     return new Response(); // null body returns will let client fetch on the client.
-                    // }
                 })
             );
         }
