@@ -13,7 +13,7 @@ self.addEventListener('install', (event) => {
             cache.addAll(sites_v1);
             cache.addAll(persistent_image_v1);
         })
-        .then(self.skipWaiting())
+        .then(self.skipWaiting()) // skipWaiting.
     );
 });
 
@@ -27,7 +27,7 @@ self.addEventListener('activate', (event) => {
             return Promise.all(cachesToDelete.map(cacheToDelete => {
                 return caches.delete(cacheToDelete);
             }));
-        }).then(() => self.clients.claim())
+        }).then(() => self.clients.claim()) // clients.claim()
     );
 });
 
