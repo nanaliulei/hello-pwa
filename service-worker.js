@@ -19,8 +19,13 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('activate', (event) => {
     // New service worker upgrade, then delete caches other than whitelist..
-    const whiteList = [precache_];  // const whiteList = [PRECACHE];
+
+    const whiteList = [precache_];
     event.waitUntil(
+        // if (self.registration.navigationPreload) {
+        //     await self.registration.navigationPreload.enable();
+        // }
+
         caches.keys().then(cacheNames => {
             return cacheNames.filter(cacheName => !whiteList.includes(cacheName));
         }).then(cachesToDelete => {
@@ -44,6 +49,12 @@ self.addEventListener('fetch', (event) => {
                     return cachedResponse;
                 }
 
+                // const preload_response = await event.preloadResponse;
+                // if (preload_response) {
+                //     storeToCache(preload_response.clone());
+                //     return preload_response;
+                // }
+
                 return fetch(event.request).then(
                     function(response) {
                         // Check if we received a valid response
@@ -57,17 +68,19 @@ self.addEventListener('fetch', (event) => {
                         // as well as the cache consuming the response, we need
                         // to clone it so we have two streams.
                         var responseToCache = response.clone();
-
-                        caches.open(runtime_cache_)
-                        .then(function(cache) {
-                            cache.put(event.request, responseToCache);
-                        });
-
+                        storeToCache(response.clone());
                         return response;
                     }
                     );
             })
         );
+
+        function storeToCache(response) {
+            caches.open(runtime_cache_)
+            .then(function(cache) {
+                cache.put(event.request, responseToCache);
+            });
+        }
         // }
     }
 });
