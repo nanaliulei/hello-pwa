@@ -2,7 +2,7 @@ const runtime_cache_ = 'runtime';
 let precache_ = ""
 
 // every check-in should change this value for refresh cache.
-let hash = '6/16:9:05/2020';
+let hash = '7/8:9:05/2020';
 
 self.addEventListener('install', (event) => {
     let t = new Date();
