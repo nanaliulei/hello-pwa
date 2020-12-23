@@ -59,8 +59,15 @@ self.addEventListener('fetch', (event) => {
                     function(response) {
                         // Check if we received a valid response
                         if(!response || response.status !== 200 || response.type !== 'basic') {
-                        // null body returns will let client fetch on the client.
-                        return new Response();
+                            // null body returns will let client fetch on the client.
+                            return new Response();
+                        }
+
+                        function storeToCache(response) {
+                            caches.open(runtime_cache_)
+                            .then(function(cache) {
+                                cache.put(event.request, response);
+                            });
                         }
 
                         // IMPORTANT: Clone the response. A response is a stream
@@ -77,12 +84,7 @@ self.addEventListener('fetch', (event) => {
             })
         );
 
-        function storeToCache(response) {
-            caches.open(runtime_cache_)
-            .then(function(cache) {
-                cache.put(event.request, responseToCache);
-            });
-        }
+
         // }
     }
 });
