@@ -99,4 +99,5 @@ var sites_v1 = [
 
 var persistent_image_v1 = [
     "https://sunggook.github.io/hello-pwa/logo256.png",
+    "https://sunggook.github.io/hello-pwa/favicon.ico",
 ]
