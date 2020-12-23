@@ -71,7 +71,9 @@ self.addEventListener('fetch', (event) => {
                         storeToCache(response.clone());
                         return response;
                     }
-                    );
+                ).catch(e => {
+                    console.log('failed to fetch: ' + e);
+                });
             })
         );
 
