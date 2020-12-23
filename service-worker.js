@@ -79,7 +79,7 @@ self.addEventListener('fetch', (event) => {
                         return response;
                     }
                 ).catch(e => {
-                    console.log('failed to fetch: ' + e);
+                    console.log('failed to fetch');
                 });
             })
         );
