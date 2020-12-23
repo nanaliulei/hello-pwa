@@ -2,7 +2,7 @@ const runtime_cache_ = 'runtime';
 let precache_ = ""
 
 // every check-in should change this value for refresh cache.
-let hash = '7/8:14:00/2020';
+let hash = '12/23:14:00/2020';
 
 self.addEventListener('install', (event) => {
     let t = new Date();
@@ -98,6 +98,5 @@ var sites_v1 = [
    ]
 
 var persistent_image_v1 = [
-    "https://sunggook.github.io/hello-pwa/skull192.png",
-    "https://sunggook.github.io/hello-pwa/skull512.png",
+    "https://sunggook.github.io/hello-pwa/logo256.png",
 ]
