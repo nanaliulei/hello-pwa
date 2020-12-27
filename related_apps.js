@@ -65,6 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
         a.click();
         window.URL.revokeObjectURL(url);
         alert('gIRATest_1.0.0.0_Test.zip has downloaded!'); // or you know, something with better UX...
+
+        document.getElementById('download-relatedApp').disabled = true;
       })
       .catch(() => alert('Failed to download a file'));
   });
