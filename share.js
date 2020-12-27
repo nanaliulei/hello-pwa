@@ -17,7 +17,7 @@ function logText(message, isError) {
   const p = document.createElement('p');
   if (isError)
     p.setAttribute('class', 'error');
-  document.querySelector('#output').appendChild(p);
+  document.getElementById('output').appendChild(p);
   p.appendChild(document.createTextNode(message));
 }
 
@@ -27,7 +27,7 @@ function logError(message) {
 
 function checkboxChanged(e) {
   const checkbox = e.target;
-  const textfield = document.querySelector('#' + checkbox.id.split('_')[0]);
+  const textfield = document.getElementById(checkbox.id.split('_')[0]);
 
   textfield.disabled = !checkbox.checked;
   if (!checkbox.checked)
@@ -40,10 +40,10 @@ async function testWebShare() {
     return;
   }
 
-  const title_input = document.querySelector('#title');
-  const text_input = document.querySelector('#text');
-  const url_input = document.querySelector('#url');
-  const file_input = document.querySelector('#files');
+  const title_input = document.getElementById('title');
+  const text_input = document.getElementById('text');
+  const url_input = document.getElementById('url');
+  const file_input = document.getElementById('files');
 
   const title = title_input.disabled ? undefined : title_input.value;
   const text = text_input.disabled ? undefined : text_input.value;
@@ -78,15 +78,15 @@ async function testWebShareDelay() {
 
 function onLoad() {
   // Checkboxes disable and delete textfields.
-  document.querySelector('#title_checkbox').addEventListener('click',
+  document.getElementById('title_checkbox').addEventListener('click',
       checkboxChanged);
-  document.querySelector('#text_checkbox').addEventListener('click',
+  document.getElementById('text_checkbox').addEventListener('click',
       checkboxChanged);
-  document.querySelector('#url_checkbox').addEventListener('click',
+  document.getElementById('url_checkbox').addEventListener('click',
       checkboxChanged);
 
-  document.querySelector('#share').addEventListener('click', testWebShare);
-  document.querySelector('#share-no-gesture').addEventListener('click',
+  document.getElementById('share').addEventListener('click', testWebShare);
+  document.getElementById('share-no-gesture').addEventListener('click',
       testWebShareDelay);
 
   if (navigator.share === undefined) {
