@@ -50,7 +50,31 @@ document.addEventListener('DOMContentLoaded', () => {
     populateRelatedApps(apps);
   });
 
-  document.getElementById('gira_button').addEventListener('click', e => {
+  document.getElementById('download-relatedApp').addEventListener('click', e => {
+    // Download the file.
+    fetch('./gIRATest_1.0.0.0_Test.zip')
+      .then(resp => resp.blob())
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        // the filename you want
+        a.download = 'gIRATest_1.0.0.0_Test.zip';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        alert('gIRATest_1.0.0.0_Test.zip has downloaded!'); // or you know, something with better UX...
+      })
+      .catch(() => alert('Failed to download a file'));
+  });
+
+  document.getElementById('relatedApp_button').addEventListener('click', e => {
+    if (window.origin !== 'https://edgepwaone.azurewebsites.net') {
+      alert('Please test on the https://edgepwaone.azurewebsites.net');
+      return;
+    }
+
     navigator.getInstalledRelatedApps().then(filtered => {
       document.getElementById('filtered_app').innerHTML = "<b>installed apps:<b> <br>"
       if (filtered.length > 0) {
