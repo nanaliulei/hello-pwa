@@ -71,6 +71,10 @@ async function testWebShare() {
   }
 }
 
+function testWebShareWithGesture() {
+  testWebShare();
+}
+
 async function testWebShareDelay() {
   await sleep(6000);
   testWebShare();
@@ -85,7 +89,7 @@ function onLoad() {
   document.getElementById('url_checkbox').addEventListener('click',
       checkboxChanged);
 
-  document.getElementById('share').addEventListener('click', testWebShare);
+  document.getElementById('share-gesture').addEventListener('click', testWebShareWithGesture);
   document.getElementById('share-no-gesture').addEventListener('click',
       testWebShareDelay);
 
