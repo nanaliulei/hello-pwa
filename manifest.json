@@ -30,8 +30,8 @@
           "accept": ["text/csv", ".csv"]
         },
         {
-          "name": "graphs",
-          "accept": "image/svg+xml"
+          "name": "simple text",
+          "accept": ["text/csv", ".simpletext"]
         }
       ]
     }

@@ -4,7 +4,7 @@ async function getNewFileHandle() {
       {
         description: 'Text Files',
         accept: {
-          'text/plain': ['.txt5'],
+          'text/plain': ['.txt2', '.simpletext'],
         },
       },
     ],
