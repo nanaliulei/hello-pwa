@@ -5,19 +5,61 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="..\style.css">
     <script src="./filehandler.js"></script>
+    <script src="./file_editor.js"></script>
     <script>
 
     </script>
+    <style>
+      .editor
+      {
+        border:solid 4px #ccc;
+        background:#f3f3f3;
+        padding: 20px;
+        min-height:400px;
+      }
+
+      .sample-toolbar
+      {
+        border:solid 1px #ddd;
+        background:#f4f4f4;
+        padding: 5px;
+        border-radius:3px;
+      }
+
+      .sample-toolbar > span
+      {
+        cursor:pointer;
+      }
+
+      .sample-toolbar > span:hover
+      {
+        text-decoration:underline;
+      }
+	</style>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 </head>
 <body bgcolor="#E6E6FA">
-    <div>
-        <h3>Activation test</3>
-        <div class="activation_type" id="file" >
-            <div>File handler activation</div>
-            <button id='file_save_click'>Try Save</button>
-            <div class="filetype" id="file_handler" contenteditable="true"></div>
-        </div>
-    </div>
+  <div>
+      <h3>Activation test</3>
+      <div class="activation_type" id="file" >
+          <div>File handler activation</div>
+          <button id='file_save_click'>Try Save</button>
+          <div class="filetype" id="file_handler" contenteditable="true"></div>
+      </div>
+  </div>
+
+  <div class="sample-toolbar">
+    <a href="javascript:void(0)" onclick="format('bold')"><span class="fa fa-bold fa-fw"></span></a>
+    <a href="javascript:void(0)" onclick="format('italic')"><span class="fa fa-italic fa-fw"></span></a>
+    <a href="javascript:void(0)" onclick="format('underline')"><span class="fa fa-underline fa-fw"></span></a>
+    <a href="javascript:void(0)" onclick="format('insertunorderedlist')"><span class="fa fa-list fa-fw"></span></a>
+    <a href="javascript:void(0)" onclick="openFile()"><span class="fa fa-folder-open fa-fw"></span></a>
+    <a href="javascript:void(0)" onclick="saveFileAs()"><span class="fa fa-save fa-fw"></span></a>
+    <span><input id="txtFormatUrl" placeholder="url" class="form-control"></span>
+  </div>
+
+  <div class="editor" id="sampleeditor">
+  </div>
 </body>
 
 </html>

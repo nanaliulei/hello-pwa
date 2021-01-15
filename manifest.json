@@ -40,14 +40,7 @@
     {
       "action": "./simple-text-reader",
       "accept": {
-        "text/csv": ".txt5"
-      }
-    },
-    {
-      "action": "./",
-      "accept": {
-        "text/csv": [ ".txt2", ".txt3" ],
-        "application/vnd.alternative-graph-app.graph": ".graph2"
+        "text/csv": [".txt2", ".simpletext"]
       }
     }
   ],
