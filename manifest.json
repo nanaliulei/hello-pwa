@@ -38,7 +38,7 @@
   },
   "file_handlers": [
     {
-      "action": "./simple-text-reader",
+      "action": "./simple-text-editor/",
       "accept": {
         "text/csv": [".txt2", ".simpletext"]
       }
