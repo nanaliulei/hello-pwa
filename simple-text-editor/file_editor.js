@@ -31,11 +31,6 @@ async function writeFile(fileHandle, contents) {
   await writable.close();
 }
 
-window.addEventListener('load', () => {
-  document.getElementById('sampleeditor').setAttribute('contenteditable', 'true');
-  // document.getElementById('sampleeditor2').setAttribute('contenteditable', 'true');
-});
-
 function format(command, value) {
   document.execCommand(command, false, value);
 }
@@ -70,7 +65,42 @@ async function openFile() {
     alert("Unable to open file.");
   }
 
+  readFile();
+}
+
+async function readFile() {
+  if (!window.fileHandle)
+    return;
+
   const file = await window.fileHandle.getFile();
   const contents = await file.text();
   document.getElementById("sampleeditor").innerHTML = contents;
 }
+
+
+function fileHandlers() {
+  if (!window.launchQueue)
+    return;
+
+  launchQueue.setConsumer(launchQueueParams => {
+    if (!launchQueueParams.files.length) {
+      console.log("launchQueue has 0 params");
+      resolve(false);
+    }
+
+    console.log("launch.params has " + launchQueueParams.files.length + " counts");
+
+    window.fileHandle = launchQueueParams.files[0];
+    readFile();
+
+    // Handle the file:
+    // https://github.com/WICG/native-file-system/blob/master/EXPLAINER.md#example-code
+  });
+}
+
+window.addEventListener('load', () => {
+  document.getElementById('sampleeditor').setAttribute('contenteditable', 'true');
+  fileHandlers();
+  // document.getElementById('sampleeditor2').setAttribute('contenteditable', 'true');
+});
+
