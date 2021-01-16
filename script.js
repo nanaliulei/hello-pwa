@@ -31,35 +31,40 @@ document.addEventListener('DOMContentLoaded', ()=> {
     });
   }
 
-    // document.getElementsByClassName('shared')[0].style.visibility =   'hidden';
-    // document.getElementsByClassName('filetype')[0].style.visibility = 'hidden';
+  // document.getElementsByClassName('shared')[0].style.visibility =   'hidden';
+  // document.getElementsByClassName('filetype')[0].style.visibility = 'hidden';
 
-    // Web Apps start from start_url from the manifest, which is a hint to
-    // check whether it is a Web Apps activation or browser navigation.
-    if (location.search.length == 0) {
-      show_activaton_type("browser");
+  // Web Apps start from start_url from the manifest, which is a hint to
+  // check whether it is a Web Apps activation or browser navigation.
+  if (location.search.length == 0) {
+    show_activaton_type("browser");
+    return;
+  }
+
+  var searchParams = new URLSearchParams(location.search);
+  if (location.search.length == 1) {
+    const launch_type = searchParams.get("utm_source");
+    if (launch_type == "app") {
+      show_activaton_type("launch");
       return;
     }
+  }
 
-    var searchParams = new URLSearchParams(location.search);
-    if (location.search.length == 1) {
-      const launch_type = searchParams.get("utm_source");
-      if (launch_type == "app") {
-        show_activaton_type("launch");
-        return;
-      }
-    }
+  const activation_type = searchParams.get("activation");
 
-    const activation_type = searchParams.get("activation");
+  if (activation_type == "share") {
+    activate_shared(searchParams);
+  } else if (activation_type == "file") {
+    activate_filehandler(searchParams).then((value) => {
+      show_activaton_type("file");
+      console.log('file handler: ' + value);
+    })
+  } else {
+    show_activaton_type("browser");
+  }
 
-    if (activation_type == "share") {
-      activate_shared(searchParams);
-    } else if (activation_type == "file") {
-      activate_filehandler(searchParams).then((value) => {
-        show_activaton_type("file");
-        console.log('file handler: ' + value);
-      })
-    } else {
-      show_activaton_type("browser");
-    }
+  document.getElementById('simple-text-editor').addEventListener('click', (e) => {
+    
+  });
+
 })

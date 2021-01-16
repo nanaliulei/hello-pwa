@@ -78,7 +78,7 @@ async function readFile() {
 }
 
 
-function fileHandlers() {
+function registerFileActivation() {
   if (!window.launchQueue)
     return;
 
@@ -100,7 +100,7 @@ function fileHandlers() {
 
 window.addEventListener('load', () => {
   document.getElementById('sampleeditor').setAttribute('contenteditable', 'true');
-  fileHandlers();
+  registerFileActivation();
   // document.getElementById('sampleeditor2').setAttribute('contenteditable', 'true');
 });
 
