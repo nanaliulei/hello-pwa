@@ -2,7 +2,7 @@ const runtime_cache_ = 'runtime';
 let precache_ = ""
 
 // every check-in should change this value for refresh cache.
-let hash = '12/23:14:00/2020';
+let hash = '12/23:14:01/2020';
 
 self.addEventListener('install', (event) => {
     let t = new Date();
@@ -97,7 +97,8 @@ var sites_v1 = [
     "https://sunggook.github.io/hello-pwa/badging.js",
     "https://sunggook.github.io/hello-pwa/style.css",
     "https://sunggook.github.io/hello-pwa/related_apps.js",
-    "https://sunggook.github.io/hello-pwa/simple-text-reader/filehandler.js",
+    "https://sunggook.github.io/hello-pwa/simple-text-editor/filehandler.js",
+    "https://sunggook.github.io/hello-pwa/simple-text-editor/file_editor.js",
     "https://sunggook.github.io/hello-pwa/manifest.json",
    ]
 
