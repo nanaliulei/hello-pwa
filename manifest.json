@@ -54,5 +54,11 @@
       "id": "android-sunggook-app",
       "url": "https://sunggook.github.io/hello-pwa"
     }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+testing",
+      "url": "https://sunggook.github.io/hello-pwa/?testing=%s"
+    }
   ]
 }
