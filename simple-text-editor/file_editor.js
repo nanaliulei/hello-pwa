@@ -1,22 +1,34 @@
 async function getNewFileHandle() {
-  const options = {
+  const save_options = {
     types: [
       {
         description: 'Text Files',
         accept: {
-          'text/plain': ['.txt2', '.simpletext'],
+          'text/plain': ['.simpletext'],
         },
       },
     ],
   };
-  const handle = await window.showSaveFilePicker(options);
+  const handle = await window.showSaveFilePicker(save_options);
   return handle;
 }
 
 function getFileHandle() {
   // For Chrome 86 and later...
   if ('showOpenFilePicker' in window) {
-    return window.showOpenFilePicker().then((handles) => handles[0]);
+    const open_options = {
+      types: [
+        {
+          description: 'simple text',
+          accept: {
+            'text/plain': ['.simpletext']
+          }
+        },
+      ],
+      excludeAcceptAllOption: true,
+      multiple: false
+    };
+    return window.showOpenFilePicker(open_options).then((handles) => handles[0]);
   }
   // For Chrome 85 and earlier...
   return window.chooseFileSystemEntries();
