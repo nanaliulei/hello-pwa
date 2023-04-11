@@ -8,6 +8,9 @@
   "scope":"./",
   "background_color": "#2C488E",
   "display": "minimal-ui",
+  "edge_side_panel": {
+   "preferred_width": 600
+  },
   "orientation": "portrait",
   "icons": [
     {
