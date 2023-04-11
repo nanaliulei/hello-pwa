@@ -1,5 +1,5 @@
 {
-  "name": "PWA Test Test",
+  "name": "PWA LL",
   "short_name": "PWA Test",
   "description": "PWA Test to help PWA team",
   "categories": ["utilities", "productivity"],
@@ -55,13 +55,13 @@
     {
       "platform": "play",
       "id": "android-sunggook-app",
-      "url": "https://sunggook.github.io/hello-pwa"
+      "url": "https://github.com/nanaliulei/hello-pwa"
     }
   ],
   "protocol_handlers": [
     {
       "protocol": "web+testing",
-      "url": "https://sunggook.github.io/hello-pwa/?testing=%s"
+      "url": "https://github.com/nanaliulei/hello-pwa/?testing=%s"
     }
   ]
 }
