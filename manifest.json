@@ -48,6 +48,32 @@
 		"purpose": "monochrome"
 	}
   ],
+  "shortcuts": [
+	{
+		"name": "Subscriptions",
+		"url": "/feed/subscriptions?feature\u003dapp_shortcuts",
+		"icons": [
+			{
+				"src": "https://www.gstatic.com/youtube/img/web/shortcuts/subscriptions_512x512.png",
+				"sizes": "512x512",
+				"type": "image/png",
+				"purpose": "any monochrome"
+			}
+		]
+	},
+	{
+		"name": "Explore",
+		"url": "/feed/explore?feature\u003dapp_shortcuts",
+		"icons": [
+			{
+				"src": "https://www.gstatic.com/youtube/img/web/shortcuts/explore_512x512.png",
+				"sizes": "512x512",
+				"type": "image/png",
+				"purpose": "any monochrome"
+			}
+		]
+	}
+  ],
   "share_target": {
     "action": "./share-target/",
     "method": "POST",
